@@ -1,0 +1,20 @@
+spa - js
+webpack - добавление модулей и зависимостей (import, export)
+    Babel
+    Scss
+    Eslint
+    2 modes
+        - Dev
+            Dev server, SourceMaps, Eslint, Not minified js and css
+        - Prod
+            Minified JS & Css
+
+git - система контроля
+
+   Production
+   1.0.0
+   0----------
+   Development
+   1.0.2
+   1------------ + ---   PR+
+   2--------------- |
