@@ -11,9 +11,10 @@ export class Excel {
     this.components = this.components.map(Component => {
       const $el = $.create('section', Component.className);
       const component = new Component($el);
-      if (component.name) {
-        window['c' + component.name] = component;
-      }
+      // DEBUG
+      // if (component.name) {
+      //   window['c' + component.name] = component;
+      // }
       $el.html(component.toHTML());
       $root.append($el);
       return component;
