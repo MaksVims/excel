@@ -19,8 +19,12 @@ export class Formula extends ExcelComponent {
     this.$on('table:changeSelect', $cell => {
       $formula.text($cell.text());
     })
-    this.$on('table:input', $cell => {
-      $formula.text($cell.text());
+    // this.$on('table:input', $cell => {
+    //   $formula.text($cell.text());
+    // })
+    this.$subscribe(state => {
+      console.log('Formula update: ', state.currentText);
+      $formula.text(state.currentText);
     })
   }
 
@@ -35,7 +39,6 @@ export class Formula extends ExcelComponent {
       this.$emit('formula:enter');
     }
   }
-
 
   toHTML() {
     return `<div class="info">fx</div>

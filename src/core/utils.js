@@ -13,3 +13,10 @@ export function range(start, end) {
       .fill('')
       .map((_, idx) => start + idx)
 }
+
+export function storage(key, payload = null) {
+  if (!payload) {
+    return JSON.parse(localStorage.getItem(key));
+  }
+  localStorage.setItem(key, JSON.stringify(payload))
+}
