@@ -6,6 +6,9 @@ import {resizeHandler} from '@/components/table/table.resize';
 import {TableSelection} from '@/components/table/TableSelection';
 import {matrix} from '@/components/table/table.functions';
 import {$} from '@core/dom'
+import * as actions from '@/redux/actions';
+import {defaultStyles} from '@/constans';
+import {parse} from '@core/parser';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -19,7 +22,7 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable(20)
+    return createTable(20, this.store.getState())
   }
 
   prepare() {
@@ -31,27 +34,54 @@ export class Table extends ExcelComponent {
 
     this.selectCell(this.$root.find(`[data-id="0:0"]`));
 
-    this.$on('formula:input', data => {
-      this.selection.$current.text(data);
+    this.$on('formula:input', value => {
+      this.selection.$current
+          .attr('data-value', value)
+          .text(parse(value));
+      this.selection.$current.text(parse(value));
+      this.updateTextInStore(value);
     })
 
     this.$on('formula:enter', () => {
       this.selection.$current.focus();
     })
+
+    this.$on('toolbar:applyStyle', value => {
+      this.selection.applyStyle(value);
+      this.$dispatch(actions.applyStyle({
+        value,
+        ids: this.selection.selectedIds,
+      }))
+    })
   }
 
   selectCell($cell) {
     this.selection.select($cell);
-    this.$emit('table:changeSelect', $cell)
+    this.$emit('table:changeSelect', $cell);
+    const styles = $cell.getStyles(Object.keys(defaultStyles))
+    this.$dispatch(actions.changeStyles(styles))
+  }
+
+  updateTextInStore(value) {
+    this.$dispatch(actions.changeText({
+      value,
+      id: this.selection.$current.id()
+    }))
+  }
+
+  async resizeTable(event) {
+    const data = await resizeHandler(event, this.$root);
+    this.$dispatch(actions.tableResize(data));
   }
 
   onInput(event) {
-    this.$emit('table:input', $(event.target))
+    // this.$emit('table:input', $(event.target))
+    this.updateTextInStore($(event.target).text())
   }
 
   onMousedown(event) {
     if (shouldResize(event)) {
-      resizeHandler(event, this.$root);
+      this.resizeTable(event);
     } else if (isCell(event)) {
       const $target = $(event.target);
       if (event.shiftKey) {
