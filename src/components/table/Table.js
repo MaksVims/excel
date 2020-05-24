@@ -8,6 +8,7 @@ import {matrix} from '@/components/table/table.functions';
 import {$} from '@core/dom'
 import * as actions from '@/redux/actions';
 import {defaultStyles} from '@/constans';
+import {parse} from '@core/parser';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -33,9 +34,12 @@ export class Table extends ExcelComponent {
 
     this.selectCell(this.$root.find(`[data-id="0:0"]`));
 
-    this.$on('formula:input', data => {
-      this.selection.$current.text(data);
-      this.updateTextInStore(data);
+    this.$on('formula:input', value => {
+      this.selection.$current
+          .attr('data-value', value)
+          .text(parse(value));
+      this.selection.$current.text(parse(value));
+      this.updateTextInStore(value);
     })
 
     this.$on('formula:enter', () => {

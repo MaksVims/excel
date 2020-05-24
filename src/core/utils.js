@@ -38,8 +38,15 @@ export function toInlineStyles(styles) {
       .join(';')
 }
 
-// export function getFormatFromCss(prop) {
-//   const keys = ['background', 'font', 'text'];
-//   const key = keys.filter(k => prop.startsWith(k))[0] || null;
-//   return key ? `${key}-${prop.slice(key.length).toLowerCase()}` : key
-// }
+export function debounce(fn, ms) {
+  let timeout;
+  return function(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      // eslint-disable-next-line no-invalid-this
+      fn.apply(this, args);
+    }
+    clearTimeout(timeout);
+    timeout = setTimeout(later, ms)
+  }
+}

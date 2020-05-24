@@ -18,7 +18,7 @@ export class Formula extends ExcelComponent {
     const $formula = this.$root.find('[data-id="formula"]');
 
     this.$on('table:changeSelect', $cell => {
-      $formula.text($cell.text());
+      $formula.text($cell.data.value);
     })
     // this.$on('table:input', $cell => {
     //   $formula.text($cell.text());

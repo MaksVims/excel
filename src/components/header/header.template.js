@@ -1,8 +1,11 @@
+import {defaultTitle} from '@/constans';
+
 export function createHeader(state) {
+  const title = state.title || defaultTitle
   return `  <input 
             type="text" 
             class="input" 
-            value="${state.title}" 
+            value="${title}" 
             data-type="input"
             />
             <div>
