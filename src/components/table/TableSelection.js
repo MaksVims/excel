@@ -27,4 +27,8 @@ export class TableSelection {
   applyStyle(style) {
     this.group.forEach($cell => $cell.css(style));
   }
+
+  get selectedIds() {
+    return this.group.map($cell => $cell.id());
+  }
 }

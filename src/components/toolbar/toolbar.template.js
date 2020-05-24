@@ -44,7 +44,7 @@ export function createToolbar(s) {
       active: s['textDecoration'] === 'underline',
       value: {
         textDecoration: s['textDecoration'] === 'underline' ?
-          'normal' : 'underline'
+          'none' : 'underline'
       }
     }
   ]

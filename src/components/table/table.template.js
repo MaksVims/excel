@@ -1,9 +1,12 @@
+import {defaultStyles} from '@/constans';
+import {toInlineStyles} from '@core/utils';
+
 const CODES = {
   'A': 65,
   'Z': 90,
 }
 const DEFAULT_WIDTH_COLUMN = 120
-const DEFAULT_HEIGHT_ROW = 40
+const DEFAULT_HEIGHT_ROW = 28
 
 function createRow(content, row = '', height) {
   const resize = row ? `<div class="row-resize" data-resize="row"></div>` : ''
@@ -38,13 +41,14 @@ function createColumn({ch, width, col}) {
 function createCell(row) {
   return function({col, width, state}) {
     const id = `${row}:${col}`;
-    const data = state[id] || ''
+    const data = state.dataState[id] || '';
+    const styles = toInlineStyles(state.stylesState[id] || defaultStyles)
     return `
         <div  
           class="cell"  
           data-col=${col} 
           data-id=${row}:${col} 
-          style="width:${width}"     
+          style="width:${width}; ${styles}"     
           data-type="cell"
           contenteditable>${data}
         </div>`
@@ -66,7 +70,7 @@ function getHeight(state, row) {
 function withWidthFrom(state) {
   return function(ch, col) {
     return {
-      ch, col, width: getWidth(state.colState, col), state: state.dataState
+      ch, col, width: getWidth(state.colState, col), state
     }
   }
 }

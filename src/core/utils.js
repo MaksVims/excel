@@ -27,3 +27,19 @@ export function isEqual(a, b) {
   }
   return a === b;
 }
+
+export function camelToDashCase(str) {
+  return str.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`);
+}
+
+export function toInlineStyles(styles) {
+  return Object.keys(styles)
+      .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
+      .join(';')
+}
+
+// export function getFormatFromCss(prop) {
+//   const keys = ['background', 'font', 'text'];
+//   const key = keys.filter(k => prop.startsWith(k))[0] || null;
+//   return key ? `${key}-${prop.slice(key.length).toLowerCase()}` : key
+// }
