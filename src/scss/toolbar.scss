@@ -19,5 +19,10 @@
     margin-right: 7px;
     padding: 3px 4px;
     background: transparent;
+
+    &:hover {
+      background: #e9e6e6;
+      border-radius: 2px;
+    }
   }
 }

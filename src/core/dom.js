@@ -79,6 +79,13 @@ class Dom {
         .forEach(([prop, value]) => this.$el.style[prop] = value);
   }
 
+  getStyles(styles) {
+    return styles.reduce((acc, s) => {
+      acc[s] = this.$el.style[s];
+      return acc;
+    }, {})
+  }
+
   addClass(className) {
     this.$el.classList.add(className);
     return this;
