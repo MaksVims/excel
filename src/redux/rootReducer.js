@@ -29,6 +29,8 @@ export function rootReducer(state, action) {
         changeStyles: {...state.changeStyles, ...action.data.value}}
     case types.CHANGE_TITLE:
       return {...state, title: action.data}
+    case types.UPDATED_DATE:
+      return {...state, date: action.data}
     default:
       return state;
   }

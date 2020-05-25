@@ -26,6 +26,8 @@ export class StoreSubscriber {
   }
 
   unsubscribeFromStore() {
-    this.subs.unsubscribe();
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
   }
 }

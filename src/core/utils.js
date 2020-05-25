@@ -1,5 +1,7 @@
 // Pure functions
 
+import {ActiveRoute} from '@core/routes/ActiveRoute';
+
 export function capitalize(str) {
   if (typeof str !== 'string') return '';
   return str[0].toUpperCase() + str.slice(1);
@@ -49,4 +51,18 @@ export function debounce(fn, ms) {
     clearTimeout(timeout);
     timeout = setTimeout(later, ms)
   }
+}
+
+
+export function storageName(params) {
+  return `excel:` + params;
+}
+
+export function deleteTable() {
+  const path = ActiveRoute.path;
+  localStorage.removeItem(path);
+}
+
+export function preventDefault(e) {
+  e.preventDefault()
 }
