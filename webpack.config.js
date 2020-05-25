@@ -13,15 +13,7 @@ const fileName = ext => {
 }
 
 const jsLoader = () => {
-  const defLoaders = [
-    {
-      loader: 'babel-loader',
-      options: {
-        presets: ['@babel/preset-env'],
-        plugins: ['@babel/plugin-proposal-class-properties']
-      }
-    }
-  ]
+  const defLoaders = ['babel-loader'];
   if (isDev) defLoaders.push('eslint-loader');
   return defLoaders;
 }
