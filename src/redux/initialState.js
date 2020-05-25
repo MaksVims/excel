@@ -1,16 +1,18 @@
-import {storage} from '@core/utils';
+import {storage, storageName} from '@core/utils';
 import {defaultStyles} from '@/constans';
 
-const defaultState = {
+const initialState = {
   rowState: {},
   colState: {},
   dataState: {},
   stylesState: {},
   currentText: '',
-  title: 'Новая таблица',
+  title: '',
   changeStyles: defaultStyles,
+  date: new Date().toLocaleString(),
 }
 
-export const initialState = storage('excel-state') ?
-  storage('excel-state') :
-  defaultState
+export function getInitialState(params) {
+  return storage(storageName(params)) ?
+    storage(storageName(params)) : JSON.parse(JSON.stringify(initialState))
+}
