@@ -1,5 +1,5 @@
 import {Page} from '@core/Page';
-import {CreateStore} from '@core/createStore';
+import {createStore} from '@core/store/createStore';
 import {rootReducer} from '@/redux/rootReducer';
 import {getInitialState} from '@/redux/initialState';
 import {debounce, storage, storageName} from '@core/utils';
@@ -14,7 +14,7 @@ import {updatedDate} from '@/redux/actions';
 export class ExcelPage extends Page {
   getRoot() {
     const params = this.params ? this.params : Date.now().toString();
-    const store = new CreateStore(rootReducer, getInitialState(params))
+    const store = createStore(rootReducer, getInitialState(params))
     const stateListener = debounce(state => {
       storage(storageName(params), state);
     }, 300)
