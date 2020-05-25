@@ -66,3 +66,8 @@ export function deleteTable() {
 export function preventDefault(e) {
   e.preventDefault()
 }
+
+export function clone(target) {
+  return JSON.parse(JSON.stringify(target));
+}
+

@@ -1,4 +1,4 @@
-import {storage, storageName} from '@core/utils';
+import {clone} from '@core/utils';
 import {defaultStyles} from '@/constans';
 
 const initialState = {
@@ -12,7 +12,9 @@ const initialState = {
   date: new Date().toLocaleString(),
 }
 
-export function getInitialState(params) {
-  return storage(storageName(params)) ?
-    storage(storageName(params)) : JSON.parse(JSON.stringify(initialState))
+export function normalizeState(state) {
+  return {
+    ...clone(initialState),
+    ...state,
+  }
 }
